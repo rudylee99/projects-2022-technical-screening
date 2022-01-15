@@ -32,7 +32,60 @@ var assert = require("assert")
 
 const altNumbers = (numArray) => {
     // TODO: COMPLETE THIS FUNCTION
-    return [];
+
+    if (numArray.length > 0){
+
+        // separate the negative and positive numbers
+        let posArray = []
+        let negArray = []
+        for (let i = 0; i < numArray.length; i++) {
+            if (numArray[i] < 0){
+                negArray.push(numArray[i])
+            }
+            else{
+                posArray.push(numArray[i])
+            }
+        }
+
+        let posIdx = 0
+        let negIdx = 0
+        let isNegFirst = true
+        let res = []
+        
+        // if the number of negatives is more than the number of positives, then the first negative number should appear at the start of the new array. 
+        // Similarly, if the number of positives is more than the number of negatives, then the first positive number should appear at the start of the new array
+        if (negArray.length > posArray.length){
+            // insert the first negative number. The next number in the array should be positive
+            res.push(negArray[negIdx])
+            negIdx += 1
+            isNegFirst = false
+        }
+        else if (negArray.length < posArray.length){
+            // insert the first positive number. The next number in the array should be negative
+            res.push(posArray[posIdx])
+            posIdx += 1
+            isNegFirst = true
+        }
+
+        while (posIdx < posArray.length && negIdx < negArray.length){
+            if (isNegFirst){
+                res.push(negArray[negIdx])
+                res.push(posArray[posIdx])
+            }
+            else {
+                res.push(posArray[posIdx])
+                res.push(negArray[negIdx])
+            }
+            negIdx += 1
+            posIdx += 1
+        }
+        return res
+    }
+
+    else{
+        return []
+    }
+    
 }
 
 module.exports = { altNumbers } // Do not modify this line
